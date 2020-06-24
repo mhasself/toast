@@ -42,6 +42,10 @@ from .mpi import Comm
 
 from .dist import Data, distribute_uniform, distribute_discrete, distribute_samples
 
+from .instrument import Telescope, Focalplane
+
+from .observation import Observation
+
 from .op import Operator
 
 from .weather import Weather

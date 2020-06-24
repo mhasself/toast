@@ -84,6 +84,8 @@ install(FILES
     timing.py
     cache.py
     dist.py
+    instrument.py
+    observation.py
     op.py
     vis.py
     rng.py

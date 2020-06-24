@@ -4,6 +4,7 @@
 
 import os
 import gc
+import hashlib
 
 import numpy as np
 
@@ -353,3 +354,24 @@ def ensure_buffer_f64(data):
     #     # Does not support buffer protocol
     #     print("ensure: converting non-buffer object ", data, flush=True)
     #     return np.ascontiguousarray(data, dtype=np.float64)
+
+
+def name_UID(name):
+    """Return a unique integer for a specified name string.
+    """
+    bdet = name.encode("utf-8")
+    dhash = hashlib.md5()
+    dhash.update(bdet)
+    bdet = dhash.digest()
+    uid = None
+    try:
+        ind = int.from_bytes(bdet, byteorder="little")
+        uid = int(ind & 0xFFFFFFFF)
+    except:
+        raise RuntimeError(
+            "Cannot convert detector name {} to a unique integer-\
+            maybe it is too long?".format(
+                name
+            )
+        )
+    return uid

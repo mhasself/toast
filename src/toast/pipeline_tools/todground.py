@@ -14,7 +14,7 @@ from ..timing import function_timer, Timer
 from ..utils import Logger, Environment
 from ..weather import Weather
 
-from .classes import Telescope, Focalplane
+from ..instrument import Telescope, Focalplane
 from .debug import add_debug_args
 
 # Schedule, Site and CES are small helper classes for building
@@ -51,7 +51,7 @@ class Site:
             lat (str) :  Site latitude as a pyEphem string
             lon (str) :  Site longitude as a pyEphem string
             alt (float) :  Site altitude in meters
-            telescope (str) :  Optional telescope instance at the site
+            telescope (Telescope) :  Optional telescope instance at the site
         """
         self.name = name
         # Strings get interpreted correctly pyEphem.
@@ -589,7 +589,7 @@ def load_schedule(args, comm):
                         site_alt,
                     ) = line.split()
                     site = Site(site_name, site_lat, site_lon, float(site_alt))
-                    telescope = Telescope(telescope_name, site=site)
+                    telescope = Telescope(telescope_name, site=site, coord="C")
                     break
                 all_ces = []
                 last_name = None
